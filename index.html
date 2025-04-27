@@ -34,6 +34,96 @@
   </head>
 
   <body>
+    <!-- Background Audio -->
+    <audio id="background-music" autoplay loop muted>
+      <source src="files/audio.m4a" type="audio/mp4">
+      Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Audio Control Button -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: rgba(255,255,255,0.7); border-radius: 50%; padding: 10px; cursor: pointer;" onclick="toggleAudio()" id="audio-control">
+      <i class="fas fa-volume-mute" id="audio-icon"></i>
+    </div>
+    
+    <script>
+      // Function to force audio play
+      function forcePlay() {
+        var audio = document.getElementById('background-music');
+        audio.muted = false;
+        console.log("Attempting to force play audio");
+        var playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            // Autoplay started successfully
+            console.log("Audio playback started successfully");
+            document.getElementById('audio-icon').className = 'fas fa-volume-up';
+          })
+          .catch(error => {
+            // Auto-play was prevented
+            console.log("Audio autoplay was prevented: " + error);
+            document.getElementById('audio-icon').className = 'fas fa-volume-mute';
+          });
+        }
+      }
+      
+      function toggleAudio() {
+        var audio = document.getElementById('background-music');
+        var icon = document.getElementById('audio-icon');
+        
+        if (audio.paused || audio.muted) {
+          audio.muted = false;
+          audio.play();
+          icon.className = 'fas fa-volume-up';
+        } else {
+          audio.pause();
+          icon.className = 'fas fa-volume-mute';
+        }
+      }
+      
+      // Auto-play using multiple events to bypass browser restrictions
+      document.addEventListener('DOMContentLoaded', function() {
+        var audio = document.getElementById('background-music');
+        
+        // Start loading the audio
+        audio.load();
+        
+        // Try to play on page load
+        forcePlay();
+        
+        // Try to play on user click interaction
+        document.body.addEventListener('click', function() {
+          if (audio.paused || audio.muted) {
+            forcePlay();
+          }
+        }, { once: true });
+        
+        // Try to play on scroll interaction - with enhanced detection
+      var scrollTriggered = false;
+        window.addEventListener('scroll', function() {
+          var audio = document.getElementById('background-music');
+          if (audio.paused || audio.muted) {
+            console.log("Scroll detected - trying to play audio");
+            forcePlay();
+            scrollTriggered = true;
+          }
+        });
+        
+        // Try again after a short delay
+        setTimeout(forcePlay, 1000);
+      });
+
+      
+      
+      // As a backup, try to play on window focus
+      window.addEventListener('focus', function() {
+        var audio = document.getElementById('background-music');
+        if (audio.paused || audio.muted) {
+          forcePlay();
+        }
+      });
+    </script>
+    
     <!-- Begin Preloader -->
     <div class="preloader-wrapper">
       <div class="preloader">
