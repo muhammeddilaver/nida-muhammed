@@ -1,14 +1,7 @@
-// CountDown Clock
-// Version   : 1.0.1
-// Developer : Ekrem KAYA
-// Website   : https://e-piksel.com
-// GitHub    : https://github.com/epiksel/countdown
-
 (function ($) {
 	$.fn.countdown = function (options, callback) {
 		var settings = $.extend({
 			date: null,
-			offset: null,
 			day: 'Day',
 			days: 'Days',
 			hour: 'Hour',
@@ -24,7 +17,7 @@
 			$.error('Date is not defined.');
 		}
 
-		// Throw error if date is set incorectly
+		// Throw error if date is set incorrectly
 		if (!Date.parse(settings.date)) {
 			$.error('Incorrect date format, it should look like this, 12/24/2012 12:00:00.');
 		}
@@ -33,33 +26,16 @@
 		var container = this;
 
 		/**
-		 * Change client's local date to match offset timezone
-		 * @return {Object} Fixed Date object.
-		 */
-		var currentDate = function () {
-			// get client's current date
-			var date = new Date();
-
-			// turn date to utc
-			var utc = date.getTime() + (date.getTimezoneOffset() * 60000);
-
-			// set new Date object
-			var new_date = new Date(utc + (3600000*settings.offset));
-
-			return new_date;
-		};
-
-		/**
 		 * Main countdown function that calculates everything
 		 */
 		function countdown () {
 			var target_date = new Date(settings.date), // set target date
-				current_date = currentDate(); // get fixed current date
+				current_date = new Date(); // get current date in visitor's local timezone
 
 			// difference of dates
 			var difference = target_date - current_date;
 
-			// if difference is negative than it's pass the target date
+			// if difference is negative than it's past the target date
 			if (difference < 0) {
 				// stop timer
 				clearInterval(interval);
@@ -81,17 +57,17 @@
 				minutes = Math.floor((difference % _hour) / _minute),
 				seconds = Math.floor((difference % _minute) / _second);
 
-			// based on the date change the refrence wording
+			// based on the date change the reference wording
 			var text_days = (days === 1) ? settings.day : settings.days,
 				text_hours = (hours === 1) ? settings.hour : settings.hours,
 				text_minutes = (minutes === 1) ? settings.minute : settings.minutes,
 				text_seconds = (seconds === 1) ? settings.second : settings.seconds;
 
-				// fix dates so that it will show two digets
-				days = (String(days).length >= 2) ? days : '0' + days;
-				hours = (String(hours).length >= 2) ? hours : '0' + hours;
-				minutes = (String(minutes).length >= 2) ? minutes : '0' + minutes;
-				seconds = (String(seconds).length >= 2) ? seconds : '0' + seconds;
+			// fix dates so that it will show two digits
+			days = (String(days).length >= 2) ? days : '0' + days;
+			hours = (String(hours).length >= 2) ? hours : '0' + hours;
+			minutes = (String(minutes).length >= 2) ? minutes : '0' + minutes;
+			seconds = (String(seconds).length >= 2) ? seconds : '0' + seconds;
 
 			// set to DOM
 			container.find('.days').text(days);
@@ -110,3 +86,79 @@
 	};
 
 })(jQuery);
+
+// Tarih ve saatleri ziyaretçinin yerel zaman dilimine çeviren fonksiyon
+function convertToLocalTimezone() {
+	// Edmonton'daki düğün tarihi ve saatleri (Mountain Time)
+	const weddingDateTime = new Date('2025-06-01T11:00:00-06:00'); // -06:00 Mountain Time
+	const mocktailStartTime = new Date('2025-06-01T14:00:00-06:00'); 
+	const mocktailEndTime = new Date('2025-06-01T15:00:00-06:00');
+	
+	// Ziyaretçinin yerel zaman dilimindeki gün, tarih ve ay bilgisi
+	const localDay = weddingDateTime.toLocaleDateString(undefined, { weekday: 'long' });
+	const localDate = weddingDateTime.getDate();
+	const localMonth = weddingDateTime.toLocaleDateString(undefined, { month: 'long' });
+	const localYear = weddingDateTime.getFullYear();
+	
+	// Ziyaretçinin yerel zaman dilimindeki saat bilgileri
+	const localWeddingTime = weddingDateTime.toLocaleTimeString(undefined, { 
+	  hour: 'numeric', 
+	  minute: 'numeric',
+	  hour12: false 
+	});
+	
+	const localMocktailStartTime = mocktailStartTime.toLocaleTimeString(undefined, { 
+	  hour: 'numeric', 
+	  minute: 'numeric',
+	  hour12: false 
+	});
+	
+	const localMocktailEndTime = mocktailEndTime.toLocaleTimeString(undefined, { 
+	  hour: 'numeric', 
+	  minute: 'numeric',
+	  hour12: false 
+	});
+  
+	// Sayfa yüklendiğinde tarih ve saat bilgilerini güncelle
+	document.querySelector('.tanggal-hari').textContent = localDay;
+	document.querySelector('.tanggal-angka').textContent = localDate;
+	document.querySelector('.tanggal-bulan').textContent = `${localMonth} ${localYear}`;
+	
+	// Hero bölümündeki tarihi de güncelle
+	const heroDateElement = document.querySelector('.tempatwaktu');
+	if (heroDateElement) {
+	  const heroDateHTML = heroDateElement.innerHTML;
+	  const updatedHeroDate = heroDateHTML.replace(
+		'Sunday, June 1, 2025',
+		`${localDay}, ${localMonth} ${localDate}, ${localYear}`
+	  );
+	  heroDateElement.innerHTML = updatedHeroDate;
+	}
+	
+	// Düğün töreni saatini güncelle
+	const weddingTimeElement = document.querySelector('.column:nth-child(2) .waktu strong');
+	if (weddingTimeElement) {
+	  weddingTimeElement.textContent = localWeddingTime;
+	}
+	
+	// Mocktail partisi saatini güncelle
+	const mocktailTimeElement = document.querySelector('.column:nth-child(3) .waktu strong');
+	if (mocktailTimeElement) {
+	  mocktailTimeElement.textContent = `${localMocktailStartTime} - ${localMocktailEndTime}`;
+	}
+  }
+  
+  // Sayfa yüklendiğinde fonksiyonu çalıştır
+  document.addEventListener('DOMContentLoaded', function() {
+	convertToLocalTimezone();
+	
+	// Geri sayım zamanlayıcısını da güncelle
+	const weddingDate = '06/01/2025 11:00:00'; // MM/DD/YYYY format
+	$('#hitungmundur').countdown({
+	  date: weddingDate,
+	  day: 'Day',
+	  days: 'Days'
+	}, function() {
+	  alert('Time is up!');
+	});
+  });
