@@ -1,5 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Lato|Raleway|Rouge+Script");
 
+@media screen and (max-width: 768px) {
+  .hero-body .title {
+    /* Add line breaks for mobile display */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-body .title .name-part {
+    display: block;
+    margin: 5px 0;
+  }
+  
+  .hero-body .title .ampersandtitle {
+    display: block;
+    margin: 5px 0;
+  }
+}
+
 .has-vertically-aligned-content {
   display: flex;
   flex-direction: column;
