@@ -1,23 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Lato|Raleway|Rouge+Script");
 
-@media screen and (max-width: 768px) {
-  .hero-body .title {
-    /* Add line breaks for mobile display */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .hero-body .title .name-part {
-    display: block;
-    margin: -15px 0;
-  }
-  
-  .hero-body .title .ampersandtitle {
-    display: block;
-    margin: -10px 0;
-  }
-}
 
 .has-vertically-aligned-content {
   display: flex;
@@ -37,6 +19,7 @@ html {
 
 .header-wrapper {
   padding-bottom: 30px;
+  background-attachment: scroll !important;
 }
 
 .navbar-item {
@@ -44,6 +27,22 @@ html {
   font-weight: 600;
   letter-spacing: 1px;
   font-size: 1rem;
+}
+
+/* Additional Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */ 
+  .header-wrapper, .hero {
+    background-attachment: scroll !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+/* Make sure the hero has a minimum height even on mobile devices */
+.hero.is-large {
+  min-height: 100vh;
 }
 
 .navbar-item.is-active {
@@ -58,8 +57,11 @@ html {
 .hero {
   background-image: url(https://picsum.photos/id/25/1920/1080);
   background: linear-gradient(rgba(153, 110, 109, 0.65), rgba(153, 110, 109, 0.65)), rgba(0, 0, 0, 0.55) url("https://picsum.photos/id/381/1920/1080") no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll !important;
   background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   color: white;
   box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-family: 'Raleway', sans-serif;
