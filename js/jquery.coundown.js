@@ -93,31 +93,29 @@ function convertToLocalTimezone() {
 	const weddingDateTime = new Date('2025-06-01T11:00:00-06:00'); // -06:00 Mountain Time
 	const mocktailStartTime = new Date('2025-06-01T14:00:00-06:00'); 
 	const mocktailEndTime = new Date('2025-06-01T15:00:00-06:00');
+
+	// Kullanıcının zaman dilimini al
+	const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const isTurkey = userTimezone.includes('Istanbul') || userTimezone.includes('Turkey') || userTimezone === 'Europe/Istanbul';
 	
 	// Ziyaretçinin yerel zaman dilimindeki gün, tarih ve ay bilgisi
-	const localDay = weddingDateTime.toLocaleDateString(undefined, { weekday: 'long' });
+	const localDay = weddingDateTime.toLocaleDateString('en-US', { weekday: 'long' });
 	const localDate = weddingDateTime.getDate();
-	const localMonth = weddingDateTime.toLocaleDateString(undefined, { month: 'long' });
+	const localMonth = weddingDateTime.toLocaleDateString('en-US', { month: 'long' });
 	const localYear = weddingDateTime.getFullYear();
+
+	const timeOptions = { 
+		hour: 'numeric', 
+		minute: 'numeric',
+		hour12: !isTurkey // Türkiye için false (24 saat), diğerleri için true (12 saat)
+	  };
 	
 	// Ziyaretçinin yerel zaman dilimindeki saat bilgileri
-	const localWeddingTime = weddingDateTime.toLocaleTimeString(undefined, { 
-	  hour: 'numeric', 
-	  minute: 'numeric',
-	  hour12: false 
-	});
+	const localWeddingTime = weddingDateTime.toLocaleTimeString('en-US', timeOptions);
 	
-	const localMocktailStartTime = mocktailStartTime.toLocaleTimeString(undefined, { 
-	  hour: 'numeric', 
-	  minute: 'numeric',
-	  hour12: false 
-	});
+	const localMocktailStartTime = mocktailStartTime.toLocaleTimeString('en-US', timeOptions);
 	
-	const localMocktailEndTime = mocktailEndTime.toLocaleTimeString(undefined, { 
-	  hour: 'numeric', 
-	  minute: 'numeric',
-	  hour12: false 
-	});
+	const localMocktailEndTime = mocktailEndTime.toLocaleTimeString('en-US', timeOptions);
   
 	// Sayfa yüklendiğinde tarih ve saat bilgilerini güncelle
 	document.querySelector('.tanggal-hari').textContent = localDay;
