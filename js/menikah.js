@@ -1,4 +1,4 @@
-// Get that hamburger menu cookin' //
+// path: js/menikah.js
 
 document.addEventListener("DOMContentLoaded", function() {
   // Get all "navbar-burger" elements

@@ -1,3 +1,5 @@
+// path: js/jquery.countdown.js
+
 (function ($) {
 	$.fn.countdown = function (options, callback) {
 		var settings = $.extend({
@@ -93,7 +95,7 @@ function convertToLocalTimezone() {
 	const weddingDateTime = new Date('2025-06-01T11:00:00-06:00'); // -06:00 Mountain Time
 	const mocktailStartTime = new Date('2025-06-01T14:00:00-06:00'); 
 	const mocktailEndTime = new Date('2025-06-01T15:00:00-06:00');
-
+  
 	// Kullanıcının zaman dilimini al
 	const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 	const isTurkey = userTimezone.includes('Istanbul') || userTimezone.includes('Turkey') || userTimezone === 'Europe/Istanbul';
@@ -103,20 +105,18 @@ function convertToLocalTimezone() {
 	const localDate = weddingDateTime.getDate();
 	const localMonth = weddingDateTime.toLocaleDateString('en-US', { month: 'long' });
 	const localYear = weddingDateTime.getFullYear();
-
+  
 	const timeOptions = { 
-		hour: 'numeric', 
-		minute: 'numeric',
-		hour12: !isTurkey // Türkiye için false (24 saat), diğerleri için true (12 saat)
-	  };
+	  hour: 'numeric', 
+	  minute: 'numeric',
+	  hour12: !isTurkey // Türkiye için false (24 saat), diğerleri için true (12 saat)
+	};
 	
 	// Ziyaretçinin yerel zaman dilimindeki saat bilgileri
 	const localWeddingTime = weddingDateTime.toLocaleTimeString('en-US', timeOptions);
-	
 	const localMocktailStartTime = mocktailStartTime.toLocaleTimeString('en-US', timeOptions);
-	
 	const localMocktailEndTime = mocktailEndTime.toLocaleTimeString('en-US', timeOptions);
-  
+	
 	// Sayfa yüklendiğinde tarih ve saat bilgilerini güncelle
 	document.querySelector('.tanggal-hari').textContent = localDay;
 	document.querySelector('.tanggal-angka').textContent = localDate;
@@ -144,6 +144,52 @@ function convertToLocalTimezone() {
 	if (mocktailTimeElement) {
 	  mocktailTimeElement.textContent = `${localMocktailStartTime} - ${localMocktailEndTime}`;
 	}
+	
+	// Zaman dilimi bilgisini ekle
+	const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const timezoneAbbr = getTimezoneAbbreviation();
+	const timezoneOffset = new Date().getTimezoneOffset();
+	const offsetHours = Math.abs(Math.floor(timezoneOffset / 60));
+	const offsetMinutes = Math.abs(timezoneOffset % 60);
+	const offsetSign = timezoneOffset < 0 ? '+' : '-';
+	const offsetFormatted = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+	
+	// Zaman dilimi bilgisini ekleyecek elementleri oluştur
+	const createTimezoneInfo = (parentSelector) => {
+	  const parent = document.querySelector(parentSelector);
+	  if (parent) {
+		const timezoneInfo = document.createElement('div');
+		timezoneInfo.className = 'timezone-info';
+		timezoneInfo.style.fontSize = '0.85em';
+		timezoneInfo.style.marginTop = '10px';
+		timezoneInfo.style.color = '#777';
+		timezoneInfo.style.fontStyle = 'italic';
+		timezoneInfo.innerHTML = `<div class="columns is-centered" data-aos="fade-up" data-aos-easing="linear">
+              <div class="column is-8">
+                <div class="timezone-info">
+                  Dates/Times shown in your local timezone ${timezoneName} (UTC${offsetFormatted})
+                </div>
+                <div class="original-time-note">
+                  Original event date: June 1, 2025 - 11:00 AM - 03:00 PM (Edmonton, Alberta - Mountain Time)
+                </div>
+              </div>
+            </div>
+		
+		`;
+		parent.appendChild(timezoneInfo);
+	  }
+	};
+	
+	// Hero bölümü ve Date bölümü için zaman dilimi bilgisini ekle
+	createTimezoneInfo('.hero-body .container');
+	createTimezoneInfo('#date .container');
+  }
+  
+  // Zaman dilimi kısaltmasını al
+  function getTimezoneAbbreviation() {
+	const date = new Date();
+	const timezone = date.toLocaleTimeString('en-us', {timeZoneName: 'short'}).split(' ')[2];
+	return timezone;
   }
   
   // Sayfa yüklendiğinde fonksiyonu çalıştır

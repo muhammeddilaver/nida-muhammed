@@ -68,12 +68,11 @@ html {
 }
 
 .a.navbar-item {
-  font-color: #996E6D;
+  color: #996E6D;
 }
 
 
 .hero {
-  background-image: url(https://picsum.photos/id/25/1920/1080);
   background: linear-gradient(rgba(153, 110, 109, 0.65), rgba(153, 110, 109, 0.65)), rgba(0, 0, 0, 0.55) url("https://picsum.photos/id/381/1920/1080") no-repeat;
   background-attachment: scroll !important;
   background-size: cover;
@@ -731,4 +730,20 @@ body.preloader-site {
 
 .audio-control i {
   font-size: 20px;
+}
+
+.timezone-info {
+  font-size: 0.85em;
+  margin-top: 10px;
+  color: #777;
+  font-style: italic;
+  text-align: center;
+}
+
+.original-time-note {
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #666;
+  font-style: italic;
+  text-align: center;
 }
