@@ -176,29 +176,45 @@
     margin-right: 1.5rem;
 }
 
-/* Submit button animation */
-#submit-rsvp-btn {
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
 
-#submit-rsvp-btn:hover {
-    background-color: #996E6D !important;
-    transform: translateY(-2px);
-}
 
-#submit-rsvp-btn:active {
-    transform: translateY(0);
-}
 
-/* Mobile adjustments */
-@media screen and (max-width: 768px) {
-    .modal-card-body {
-        padding: 1.5rem;
-    }
-
-    .btn-rsvp {
-        width: 180px;
-        height: 55px;
-        font-size: 1.1rem;
-    }
-}
+        @keyframes pulsate {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 8px rgba(188, 136, 135, 0.4);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(188, 136, 135, 0.6);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 8px rgba(188, 136, 135, 0.4);
+          }
+        }
+        
+        .btn-rsvp {
+          background-color: #BC8887;
+          color: white;
+          font-size: 1.2rem;
+          border-radius: 10px;
+          border: 2px solid #BC8887;
+          width: 150px;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 1rem auto;
+          transition: all 0.3s ease;
+          animation: pulsate 2.5s ease-in-out infinite;
+          box-shadow: 0 0 8px rgba(188, 136, 135, 0.4);
+        }
+        
+        .btn-rsvp:hover {
+          background-color: #996E6D;
+          border-color: #996E6D;
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          animation-play-state: paused;
+        }
