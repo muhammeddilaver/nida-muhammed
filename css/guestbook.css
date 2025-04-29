@@ -1,0 +1,99 @@
+/* Guestbook Styles */
+.guestbook-section {
+    background-color: #fcf6f5;
+    padding: 3rem 1.5rem;
+  }
+  
+  .guestbook-title {
+    font-family: 'Lato', sans-serif;
+    color: #BC8887;
+    margin-bottom: 2rem;
+  }
+  
+  .guestbook-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .guestbook-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+  
+  .guestbook-entry {
+    margin-bottom: 1rem;
+    background-color: white;
+    transition: transform 0.2s ease;
+  }
+  
+  .guestbook-entry:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .guestbook-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 280px;
+    max-width: 320px;
+    animation: slideIn 0.4s ease;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  
+  .entries-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .entries-count {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .entries-loader {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+  
+  .guestbook-divider {
+    height: 2px;
+    background-color: #f5f5f5;
+    margin: 2rem 0;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .guestbook-form {
+      padding: 1.5rem;
+    }
+    
+    .guestbook-notification {
+      left: 20px;
+      right: 20px;
+      max-width: none;
+    }
+  }
