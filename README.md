@@ -1,5 +1,7 @@
 # Wedding Landing Page - Nida Muhammed Wedding
 
+# This is a simple web page. I dropped API KEYS intentionally because i dont care :D 
+
 # Section/Feature
 - Main Info
 - Countdown to D-Day
