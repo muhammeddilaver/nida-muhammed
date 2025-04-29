@@ -1,3 +1,4 @@
+// path: js/guestbook.js
 // Initialize Supabase client
 const supabaseClient = supabase.createClient(
     'https://eyneqrajzyjfqzmxneqz.supabase.co',

@@ -181,7 +181,7 @@ function convertToLocalTimezone() {
 	};
 	
 	// Hero bölümü ve Date bölümü için zaman dilimi bilgisini ekle
-	createTimezoneInfo('.hero-body .container');
+	//createTimezoneInfo('.hero-body .container');
 	createTimezoneInfo('#date .container');
   }
   

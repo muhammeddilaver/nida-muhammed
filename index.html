@@ -21,6 +21,7 @@
   <link rel="stylesheet" type="text/css" href="css/menikah.css" />
   <link rel="stylesheet" type="text/css" href="css/guestbook.css" />
   <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css" />
+  <link rel="stylesheet" type="text/css" href="css/rsvp.css" />
   <script src="https://kit.fontawesome.com/2828f7885a.js"
     integrity="sha384-WAsFbnLEQcpCk8lM1UTWesAf5rGTCvb2Y+8LvyjAAcxK1c3s5c0L+SYOgxvc6PWG"
     crossorigin="anonymous"></script>
@@ -228,6 +229,12 @@
             </script>
           </div>
           <!-- End Countdown -->
+
+          <!-- New RSVP Button -->
+          <button class="button btn-rsvp open-rsvp-modal" data-aos="zoom-in">
+            <i class="fas fa-envelope-open-text"></i>
+            &nbsp;&nbsp;RSVP Now
+          </button>
         </div>
       </div>
       <!-- End Hero Content-->
@@ -328,7 +335,7 @@
             <div class="waktu tanggal-angka has-text-centered">1</div>
             <div class="waktu tanggal-bulan has-text-centered">June 2025</div>
             </p>
-            
+
           </div>
           <div class="column is-4 has-vertically-aligned-content">
 
@@ -402,10 +409,10 @@
             Leave a message for Nida & Muhammed
           </p>
         </div>
-        
+
         <!-- Notifications area -->
         <div id="notifications"></div>
-        
+
         <!-- Guestbook Form -->
         <div class="guestbook-form" data-aos="fade-up" data-aos-easing="linear">
           <form id="guestbook-form">
@@ -424,17 +431,19 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="field">
               <label class="label">Your Message</label>
               <div class="control">
-                <textarea class="textarea" id="message" placeholder="Share your wishes for the couple..." required></textarea>
+                <textarea class="textarea" id="message" placeholder="Share your wishes for the couple..."
+                  required></textarea>
               </div>
             </div>
-            
+
             <div class="field form-buttons">
               <div class="control">
-                <button id="submit-btn" type="submit" class="button is-primary" style="background-color: #BC8887; border-color: transparent;">
+                <button id="submit-btn" type="submit" class="button is-primary"
+                  style="background-color: #BC8887; border-color: transparent;">
                   <span class="icon">
                     <i class="fas fa-paper-plane"></i>
                   </span>
@@ -444,22 +453,22 @@
             </div>
           </form>
         </div>
-        
+
         <!-- Guestbook Entries -->
         <div class="entries-header" data-aos="fade-up" data-aos-easing="linear">
           <h2 class="subtitle is-4">Messages</h2>
           <span class="entries-count" id="entries-count"></span>
         </div>
-        
+
         <div class="entries-loader is-hidden" id="entries-loader">
           <div class="loader"></div>
         </div>
-        
+
         <div id="guestbook-entries" data-aos="fade-up" data-aos-easing="linear">
           <!-- Entries will be loaded here -->
         </div>
       </div>
-      
+
       <div class="space40px"></div>
     </section>
     <!-- End Guestbook Section -->
@@ -480,12 +489,20 @@
               Please let us know if you are able to join us in celebrating this special moment.
               <br>
               <br>
-              If you cannot attend, we completely understand and look forward to sharing our happiness with you on another occasion.
+              If you cannot attend, we completely understand and look forward to sharing our happiness with you on
+              another occasion.
               <br>
               <br>
               Until then, stay safe and take good care of your health. :)
             </p>
 
+            <!-- New RSVP Button -->
+            <button class="button btn-rsvp open-rsvp-modal" data-aos="zoom-in">
+              <i class="fas fa-envelope-open-text"></i>
+              &nbsp;&nbsp;RSVP Now
+            </button>
+
+            <!-- Original WhatsApp Button -->
             <a href="https://api.whatsapp.com/send?phone=14378550611&text=Hello,%20I%20will%20be%20attending%20the%20wedding%20event.&source=&data="
               class="button btn-whatsapp" target="_blank" data-aos="zoom-in">
               <i class="fab fa-whatsapp"></i>
@@ -498,9 +515,7 @@
               <img src="image/divider-leaves.png" class="divider has-text-centered" alt="~~~">
             </div>
             <div class="space40px"></div>
-
           </div>
-
         </div>
       </div>
     </section>
@@ -508,10 +523,46 @@
   </div>
   <!-- End Main Content -->
 
+  <!-- RSVP Modal -->
+  <div id="rsvp-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">RSVP for Nida & Muhammed's Wedding</p>
+        <button class="delete" aria-label="close" id="close-modal-x"></button>
+      </header>
+      <section class="modal-card-body">
+        <form id="rsvp-form">
+          <div class="field">
+            <label class="label">Full Name</label>
+            <div class="control">
+              <input class="input" type="text" id="attendee-name" placeholder="Your Full Name" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Number of Guests (including yourself)</label>
+            <div class="control">
+              <input class="input" type="number" id="number-of-guests" min="1" max="10" value="1" required>
+            </div>
+            <p class="help">Please include yourself in the guest count</p>
+          </div>
+
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button id="submit-rsvp-btn" class="button" style="background-color: #BC8887; color: white;">Submit
+          RSVP</button>
+        <button id="close-modal-btn" class="button">Cancel</button>
+      </footer>
+    </div>
+  </div>
+  <!-- End RSVP Modal -->
+
   <!-- Begin Footer -->
   <div class="footer">
     <div class="container">
-      <p class="has-vertically-align">2025 &copy Muhammed Dilaver</p>
+      <p class="has-vertically-align">2025 &copy; Muhammed Dilaver</p>
     </div>
   </div>
   <!-- End Footer -->
@@ -520,6 +571,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="js/menikah.js"></script>
   <script src="js/guestbook.js"></script>
+  <script src="js/rsvp.js"></script>
   <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
   <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
   <script>

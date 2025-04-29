@@ -2,39 +2,39 @@
 .guestbook-section {
     background-color: #fcf6f5;
     padding: 3rem 1.5rem;
-  }
-  
-  .guestbook-title {
+}
+
+.guestbook-title {
     font-family: 'Lato', sans-serif;
     color: #BC8887;
     margin-bottom: 2rem;
-  }
-  
-  .guestbook-container {
+}
+
+.guestbook-container {
     max-width: 800px;
     margin: 0 auto;
-  }
-  
-  .guestbook-form {
+}
+
+.guestbook-form {
     background-color: white;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
-  }
-  
-  .guestbook-entry {
+}
+
+.guestbook-entry {
     margin-bottom: 1rem;
     background-color: white;
     transition: transform 0.2s ease;
-  }
-  
-  .guestbook-entry:hover {
+}
+
+.guestbook-entry:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .guestbook-notification {
+}
+
+.guestbook-notification {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -42,58 +42,163 @@
     min-width: 280px;
     max-width: 320px;
     animation: slideIn 0.4s ease;
-  }
-  
-  @keyframes slideIn {
+}
+
+@keyframes slideIn {
     from {
-      transform: translateY(50px);
-      opacity: 0;
+        transform: translateY(50px);
+        opacity: 0;
     }
+
     to {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
-  }
-  
-  .form-buttons {
+}
+
+.form-buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 1rem;
-  }
-  
-  .entries-header {
+}
+
+.entries-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-  }
-  
-  .entries-count {
+}
+
+.entries-count {
     font-size: 0.9rem;
     color: #666;
-  }
-  
-  .entries-loader {
+}
+
+.entries-loader {
     display: flex;
     justify-content: center;
     padding: 2rem 0;
-  }
-  
-  .guestbook-divider {
+}
+
+.guestbook-divider {
     height: 2px;
     background-color: #f5f5f5;
     margin: 2rem 0;
-  }
-  
-  /* Responsive adjustments */
-  @media screen and (max-width: 768px) {
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
     .guestbook-form {
-      padding: 1.5rem;
+        padding: 1.5rem;
     }
-    
+
     .guestbook-notification {
-      left: 20px;
-      right: 20px;
-      max-width: none;
+        left: 20px;
+        right: 20px;
+        max-width: none;
     }
-  }
+}
+
+
+/* RSVP Button Styles */
+.btn-rsvp {
+    background-color: #BC8887;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 2px solid #BC8887;
+    width: 210px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    transition: all 0.3s ease;
+}
+
+.btn-rsvp:hover {
+    background-color: #996E6D;
+    border-color: #996E6D;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* RSVP Modal Styles */
+.modal-card {
+    border-radius: 8px;
+    max-width: 550px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.modal-card-head {
+    background-color: #F4E2E2;
+    border-bottom: 2px solid #EDD2D1;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-card-title {
+    color: #996E6D;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.modal-card-body {
+    background-color: #fcf6f5;
+    padding: 2rem;
+}
+
+.modal-card-foot {
+    background-color: #F4E2E2;
+    border-top: 2px solid #EDD2D1;
+    border-radius: 0 0 8px 8px;
+    justify-content: flex-end;
+}
+
+/* Form field styles */
+.field {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    color: #996E6D;
+    font-weight: 600;
+}
+
+.input:focus,
+.textarea:focus {
+    border-color: #BC8887;
+    box-shadow: 0 0 0 2px rgba(188, 136, 135, 0.25);
+}
+
+.radio {
+    margin-right: 1.5rem;
+}
+
+/* Submit button animation */
+#submit-rsvp-btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#submit-rsvp-btn:hover {
+    background-color: #996E6D !important;
+    transform: translateY(-2px);
+}
+
+#submit-rsvp-btn:active {
+    transform: translateY(0);
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .modal-card-body {
+        padding: 1.5rem;
+    }
+
+    .btn-rsvp {
+        width: 180px;
+        height: 55px;
+        font-size: 1.1rem;
+    }
+}
