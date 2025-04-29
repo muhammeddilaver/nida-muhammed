@@ -2,7 +2,7 @@
 
 .hero-body {
   padding-bottom: 12rem !important;
-    padding-top: 12rem !important;
+  padding-top: 12rem !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -13,8 +13,8 @@
     align-items: center;
   }
   .hero-body {
-    padding-bottom: 8rem !important;
-      padding-top: 4rem !important;
+    padding-bottom: 38rem !important;
+      padding-top: 0rem !important;
   }
   
   .hero-body .title .name-part {
@@ -23,9 +23,10 @@
   }
   
   .hero-body .title .ampersandtitle {
-    display: block;
+    display: none;
     margin: -10px 0;
   }
+  
 }
 
 .has-vertically-aligned-content {
